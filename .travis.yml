@@ -1,0 +1,11 @@
+language: java
+
+script: mvn package
+
+env:
+  global:
+    # sets the HEROKU_API_KEY for Heroku deploys
+    - secure: "JrPeMkwE/45KjoIi4GYHxFJhnhaYeKFFyJJS0ujK+ccpjDdN4Im2cL2qpGhQT/xcIRyFg+Hz537BkJSPrl1lyRZ9Q7gbNUlRiO3JTgVHw+hBMGtd5fzgtAqiQOgHocEaffA4AO/KwTGJJsYBs7ssZ6z2tyg++UxD6rOOFnmuM5w="
+
+after_success:
+  - ./deploy.sh "$HEROKU_API_KEY"
