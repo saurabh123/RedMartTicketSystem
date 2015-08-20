@@ -8,7 +8,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
 import org.hibernate.annotations.GenericGenerator;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "comment")
@@ -22,7 +25,8 @@ public class CommentDTO {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "fk_ticket_id", nullable = false)
-	private TicketDTO ticket;
+	@JsonBackReference
+	private TicketDTO comment_ticket;
 		
 	@Column(name="comment")
 	private String comment;
@@ -35,13 +39,7 @@ public class CommentDTO {
 		this.id = id;
 	}
 
-	public TicketDTO getTicket() {
-		return ticket;
-	}
 
-	public void setTicket(TicketDTO ticket) {
-		this.ticket = ticket;
-	}
 
 	public String getComment() {
 		return comment;
@@ -49,6 +47,14 @@ public class CommentDTO {
 
 	public void setComment(String comment) {
 		this.comment = comment;
+	}
+
+	public TicketDTO getComment_ticket() {
+		return comment_ticket;
+	}
+
+	public void setComment_ticket(TicketDTO comment_ticket) {
+		this.comment_ticket = comment_ticket;
 	}	
 	
 }

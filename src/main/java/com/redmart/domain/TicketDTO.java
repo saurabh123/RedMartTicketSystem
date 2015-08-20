@@ -3,6 +3,7 @@ package com.redmart.domain;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,7 +16,12 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
 import org.hibernate.annotations.GenericGenerator;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "ticket")
@@ -36,6 +42,7 @@ public class TicketDTO {
 	private String description;
 	
 	@OneToOne (mappedBy="ticket",fetch = FetchType.EAGER)
+	
 	private CustomerDTO customer;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -50,8 +57,8 @@ public class TicketDTO {
 	@JoinColumn(name = "fk_ticket_assignedTo", nullable = true)
     private UserDTO ticket_assignedTo;
 	
-	@OneToMany (mappedBy="ticket",fetch = FetchType.EAGER)
-	private Set<CommentDTO> pr_tags = new HashSet<CommentDTO>();
+	@OneToMany (mappedBy="comment_ticket",fetch = FetchType.EAGER)
+	private Set<CommentDTO> comments = new HashSet<CommentDTO>();
 
 	
 
@@ -111,14 +118,14 @@ public class TicketDTO {
 		this.ticket_assignedTo = ticket_assignedTo;
 	}
 
-	public Set<CommentDTO> getPr_tags() {
-		return pr_tags;
+	public Set<CommentDTO> getComments() {
+		return comments;
 	}
 
-	public void setPr_tags(Set<CommentDTO> pr_tags) {
-		this.pr_tags = pr_tags;
+	public void setComments(Set<CommentDTO> comments) {
+		this.comments = comments;
 	}
 
-			
+		
 
 }

@@ -3,6 +3,7 @@ package com.redmart.dao;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashSet;
+import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -30,6 +31,7 @@ public class TicketDAOImpl implements TicketDAO{
 		ticket.setTicket_status(ticket_status);
 		CustomerDTO customer = new CustomerDTO();
 		customer=ticket.getCustomer();
+		customer.setTicket(ticket);
 		
 		session.save(ticket);
 		session.save(customer);
@@ -39,10 +41,8 @@ public class TicketDAOImpl implements TicketDAO{
 		// TODO Auto-generated method stub
 		Session session = this.sessionFactory.getCurrentSession();
 
-		Collection tickets = new LinkedHashSet(session.createCriteria(TicketDTO.class).list());
-	    ArrayList<TicketDTO> ticketlist = new ArrayList<TicketDTO>(tickets);
-			
-		
+		List tickets = session.createCriteria(TicketDTO.class).list();
+	    ArrayList<TicketDTO> ticketlist = new ArrayList<TicketDTO>(tickets);		
 		return ticketlist;	
 		
 	}
@@ -82,7 +82,7 @@ public class TicketDAOImpl implements TicketDAO{
 		TicketDTO ticket = (TicketDTO)session.load(TicketDTO.class,ticketId);
 		CommentDTO commentdto = new CommentDTO();
 		commentdto.setComment(comment);
-		commentdto.setTicket(ticket);
+		commentdto.setComment_ticket(ticket);
 		session.save(commentdto);
 		return "Comment Successfully Updated";
 		 

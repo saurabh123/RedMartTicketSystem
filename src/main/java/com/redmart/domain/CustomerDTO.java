@@ -11,6 +11,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 @Table(name = "customer")
@@ -34,6 +36,7 @@ public class CustomerDTO {
 	
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "fk_ticket_id")
+	@JsonIgnore
 	private TicketDTO ticket;
 
 
